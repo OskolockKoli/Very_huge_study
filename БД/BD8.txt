@@ -1,0 +1,87 @@
+USE BD1;
+SET SQL_SAFE_UPDATES = 0;
+#8
+
+delimiter //
+CREATE TRIGGER t1_del_m_with_m_data
+BEFORE DELETE ON meter
+FOR EACH ROW
+BEGIN 
+  IF EXISTS (SELECT * FROM meter_data WHERE meter_id = OLD.meter_id AND value = 0) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Нельзя удалять счётчик с ненулевыми показаниями';
+  END IF;
+END//
+delimiter ;
+
+DELETE from meter where meter_id = 5;
+
+delimiter //
+CREATE TRIGGER t2 
+AFTER INSERT ON owner_flat
+FOR EACH ROW 
+BEGIN 
+UPDATE owner
+SET flat_count = flat_count + 1
+WHERE owner_id = NEW.owner_id;
+END//
+delimiter ;
+
+INSERT INTO owner_flat VALUES (6, 1, 6);
+
+delimiter //
+CREATE TRIGGER t3 
+BEFORE INSERT ON flat
+FOR EACH ROW
+BEGIN
+IF NOT EXISTS (SELECT * FROM floor WHERE floor_id = NEW.floor_id) THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Квартира с указанным этажом не существует';
+  END IF;
+END//
+delimiter ;
+
+INSERT INTO flat VALUES (7, 7, 170.20, 99.55, 4);
+
+delimiter //
+CREATE TRIGGER t4 
+AFTER DELETE ON owner_flat
+FOR EACH ROW 
+BEGIN 
+UPDATE owner
+SET flat_count = flat_count - 1
+WHERE owner_id = OLD.owner_id;
+END//
+delimiter ;
+
+delete from owner_flat where owner_flat_id = 6;
+
+delimiter //
+CREATE TRIGGER t5 
+BEFORE UPDATE ON flat
+FOR EACH ROW
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM floor WHERE floor_id = NEW.floor_id) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Квартира с данным этажом не существует';
+  END IF;
+END//
+delimiter ;
+
+UPDATE flat SET floor_id = 4 WHERE flat_id = 6; 
+
+delimiter //
+CREATE TRIGGER t6 
+AFTER UPDATE ON owner_flat
+FOR EACH ROW
+BEGIN
+IF NEW.owner_id <> OLD.owner_id THEN
+UPDATE owner
+SET flat_count = flat_count - 1
+WHERE owner_id = OLD.owner_id;
+UPDATE owner
+SET flat_count = flat_count + 1
+WHERE owner_id = NEW.owner_id;
+END IF;
+END//
+delimiter ;
+
+UPDATE owner_flat SET owner_id = 2 WHERE owner_flat_id = 3;

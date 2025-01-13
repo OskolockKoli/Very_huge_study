@@ -1,0 +1,20 @@
+USE BD1;
+
+#5
+
+SELECT F.flat_id
+FROM owner AS O 
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id WHERE O.secondname LIKE 'И%на';
+
+SELECT O.*
+FROM owner AS O 
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN owner_flat AS O_F2 ON O.owner_id = O_F2.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+JOIN flat AS F2 ON F2.flat_id = O_F2.flat_id 
+WHERE F2.number_of_rooms = 2 AND O_F2.owner_id = O_F.owner_id;
+
+SELECT * FROM floor AS FLO
+LEFT JOIN flat AS FLA ON FLO.floor_id = FLA.floor_id
+WHERE FLA.floor_id IS NULL;

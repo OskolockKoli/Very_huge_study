@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Bobrovich_4136_WT</title>
+<style>
+canvas {
+border: 1px dashed black;
+}
+.hr {
+color: white;
+}
+</style>
+<script>
+  function clear_holst()
+{ var canvas = document.getElementById("drawingCanvas");
+var context = canvas.getContext("2d");
+context.clearRect(0,0,600,200);  }
+</script>
+</head>
+<body bgcolor="#9B9B9B">
+<font size="4" face="Cambria">
+<a href="main.html"><img src="logo.jpg"></a>
+  <h1 align="center">Форматы для хранения звука</h1>
+  <h2 align="center">Развлекательная страница</h2>
+<hr>
+  Карта сайта:
+  <br><a href="main.html">Главная страница</a>
+  <br><a href="dop.html">Дополнительная информация</a>
+  <br><a href="sources.html">Источники</a>
+  <br><a href="lab3_1.htm">Если скучно читать про форматы для хранения звука</a>
+  <br><a href="lab3_2.htm">Если очень скучно читать про форматы для хранения звука</a>
+  <br><a href="forma.htm">Анкета посетителя сайта</a>
+<hr>
+<table border =0> 
+<tr>
+<td> Введите  текст программы на javascript:</td>
+<td>Отображение рисунка:</td>
+</tr>
+<tr>
+<td><textarea id="mycode" rows=20 cols=100></textarea></td> 
+<td><canvas id="drawingCanvas" width="400" height="300">Ваш браузер не поддерживает canvas</canvas></td>
+</tr>
+</table>
+<br><br>
+<button onclick= "eval(document.getElementById('mycode').value)">Отобразить рисунок</button>
+<hr color="black">
+  Автор сайта: Бобрович Николай Сергеевич. Почта: TolstiyKolya@yandex.ru
+</font>
+</body>
+</html>

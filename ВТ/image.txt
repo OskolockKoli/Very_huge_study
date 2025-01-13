@@ -1,0 +1,8 @@
+var canvas = document.getElementById("drawingCanvas");
+var context = canvas.getContext("2d");
+context.clearRect(0,0,400,400);
+
+context.strokeRect(20,20,180,120);
+context.strokeRect(35,35,150,90);
+context.strokeRect(50,50,120,60);
+context.strokeRect(65,65,90,30);

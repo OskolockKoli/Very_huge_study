@@ -1,0 +1,115 @@
+USE BD1;
+SET SQL_SAFE_UPDATES = 0;
+#7
+/*
+delimiter //
+CREATE PROCEDURE p1 (floor_number_ INT, number_of_rooms_ INT, area_ DECIMAL(18,2), living_space_ DECIMAL(18,2))
+BEGIN
+declare floor_id_new int;
+declare flat_id_new int;
+if exists (select * from floor where floor_number = floor_number_)
+then select floor_id into floor_id_new from floor where floor_number = floor_number_; 
+else begin
+set floor_id_new = (select ifnull (max(floor_id) + 1,0) from floor); 
+INSERT INTO floor (floor_id, floor_number) VALUES (floor_id_new, floor_number_);
+end;
+end if;
+set flat_id_new = ( select ifnull(max(flat_id)+1,0) from flat); 
+insert into flat (flat_id, number_of_rooms, area, living_space, floor_id) 
+VALUES (flat_id_new, number_of_rooms_, area_, living_space_,floor_id_new);
+END;// 
+delimiter ;
+
+delimiter //
+create procedure p2(flat_id_del int)
+BEGIN
+declare floor_id_del int;
+select floor_id into floor_id_del from flat where flat_id = flat_id_del;
+delete from flat where flat_id = flat_id_del;
+if not exists(select * from flat where floor_id = floor_id_del) 
+then delete from floor where floor_id = floor_id_del;
+end if;
+END;//
+delimiter ;
+
+#drop procedure p3;
+delimiter //
+create procedure p3(floor_id_del int)
+BEGIN
+#delete from meter_data where meter_id in
+#(select meter_id from meter where flat_id in
+#(select flat_id from flat where floor_id = floor_id_del));
+DELETE meter_data 
+    FROM meter_data
+    JOIN meter ON meter_data.meter_id = meter.meter_id
+    JOIN flat ON meter.flat_id = flat.flat_id
+    WHERE flat.floor_id = floor_id_del;
+
+delete from meter where flat_id in
+(select flat_id from flat where floor_id = floor_id_del);
+
+delete from owner_flat where flat_id in
+(select flat_id from flat where floor_id = floor_id_del);
+
+delete from flat where floor_id = floor_id_del;
+
+delete from floor where floor_id = floor_id_del;
+END;//
+delimiter ;
+
+delimiter //
+create procedure p4(out cnt_floor int)
+BEGIN
+select ifnull(count(floor_id),0) into cnt_floor from floor; 
+END;//
+delimiter ;
+
+delimiter //
+create function p4_1() returns int NOT DETERMINISTIC
+BEGIN
+declare cnt_floor int DEFAULT 0;
+set cnt_floor = (select ifnull(count(floor_id),0) from floor);
+return cnt_floor;
+END;//
+delimiter ;
+
+delimiter //
+create procedure p5()
+BEGIN
+create temporary table if not exists owner_stat
+(
+id_stat int auto_increment primary key,
+flat_id int,
+count_owner int,
+count_owner_avg double default 0,
+diff_cnt_avg double default 0
+);
+insert into owner_stat (flat_id, count_owner)
+select flat.flat_id, count(owner_id) as count_owner from flat
+left join owner_flat on flat.flat_id = owner_flat.flat_id group by flat.flat_id;
+update owner_stat set count_owner_avg =
+(select avg(count_owner) from
+(select flat.flat_id, count(owner_id) as count_owner from flat
+left join owner_flat on flat.flat_id = owner_flat.flat_id group by flat.flat_id)q);
+update owner_stat set diff_cnt_avg = count_owner - count_owner_avg;
+select * from owner_stat;
+select avg (diff_cnt_avg * diff_cnt_avg) from owner_stat;
+drop table owner_stat;
+END;//
+delimiter ;
+*/
+
+#drop procedure p1;
+
+#call p1 (4, 5, 70.33, 68.11);
+
+#call p2 (6);
+
+#call p3 (1);
+
+#call p4(@cnt);
+#select @cnt;
+
+#select p4_1();
+
+#call p5 ();

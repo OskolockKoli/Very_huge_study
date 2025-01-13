@@ -1,0 +1,113 @@
+meter_type1_id = ObjectId()
+meter_type2_id = ObjectId()
+
+db.meter_type.insertMany([
+  {
+    "_id": meter_type1_id,
+    "type": "gas"
+  },
+  {
+    "_id": meter_type2_id,
+    "type": "water"
+  }
+])
+
+owner1_id = ObjectId()
+owner2_id = ObjectId()
+
+db.owner.insertMany([
+  {
+    "_id": owner1_id,
+    "name": "Иван",
+    "surname": "Иванов",
+    "patronym": "Иванович"
+  },
+  {
+    "_id": owner2_id,
+    "name": "Анна",
+    "surname": "Иванова",
+    "patronym": "Ивановна"
+  }
+])
+
+floor1_id = ObjectId()
+floor2_id = ObjectId()
+floor3_id = ObjectId()
+
+flat1_id = ObjectId()
+flat2_id = ObjectId()
+flat3_id = ObjectId()
+
+meter1_id = ObjectId()
+meter2_id = ObjectId()
+meter3_id = ObjectId()
+meter4_id = ObjectId()
+
+db.floor.insertMany([
+  {
+    "_id": floor1_id,
+    "floor_number": 1,
+    "flats": [
+      {
+        "_id": flat1_id,
+        "number_of_rooms": 3,
+        "area": 150.2,
+        "living_space": 144.8,
+        "is_c_p": false,
+        "owner_id": [owner1_id],
+        "meters": [
+          {
+            "_id": meter1_id,
+            "value": 220.2,
+            "meter_type": meter_type1_id
+          },
+          {
+            "_id": meter2_id,
+            "value": 210.2,
+            "meter_type": meter_type2_id
+          }
+        ]
+      },
+      {
+        "_id": flat2_id,
+        "number_of_rooms": 2,
+        "area": 60.2,
+        "living_space": 44.8,
+        "is_c_p": false,
+        "owner_id": [owner2_id],
+        "meters": [
+          {
+            "_id": meter4_id,
+            "value": 280.2,
+            "meter_type": meter_type2_id
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": floor2_id,
+    "floor_number": 2,
+    "flats": [
+      {
+        "_id": flat3_id,
+        "number_of_rooms": 2,
+        "area": 50.2,
+        "living_space": 14.8,
+        "is_c_p": true,
+        "owner_id": [owner1_id],
+        "meters": [
+          {
+            "_id": meter3_id,
+            "value": 200.2,
+            "meter_type": meter_type1_id
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": floor3_id,
+    "floor_number": 3
+  }
+])

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Bobrovich_4136_WT</title>
+<script  type= "text/javascript">
+function sum(a, b){
+    const result = a + b;
+    alert(result);
+}
+
+let message = () => "Переход на другую страницу";
+alert(message());
+
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+function doSomething(scrollPos) {
+  alert("Вы скроллите страницу")
+}
+
+document.addEventListener("scroll", (event) => {
+  lastKnownScrollPosition = window.scrollY;
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      doSomething(lastKnownScrollPosition);
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+var tmrid;
+function watch1 ()
+{
+var  datecur, hour;
+var time ="", a = "";
+datecur = new Date();
+hour = datecur.getHours();
+a  = ((hour <10) ? "0" : "" ) + hour + " : ";
+if (hour % 2 == 0) {
+  tmr1.style.backgroundColor = 'blue';
+}
+if (hour % 2 == 1) {
+  tmr1.style.backgroundColor = 'yellow';
+}
+tmr1 = document.getElementById ("tmr1");
+tmr1.innerText = a;
+}
+
+function f2() {
+  alert('Вы нажали на кнопку');
+}
+
+function watch2 ()
+{
+var  datecur, minute;
+var time ="", b = "";
+datecur = new Date();
+minute= datecur.getMinutes();
+b  = ((minute <10) ? "0" : "" ) +  minute + " : ";
+if (minute % 2 == 0) {
+  tmr2.style.backgroundColor = 'red';
+}
+if (minute % 2 == 1) {
+  tmr2.style.backgroundColor = 'blue';
+}
+tmr2 = document.getElementById ("tmr2");
+tmr2.innerText = b;
+}
+
+function watch3 ()
+{
+var  datecur, sec;
+var time ="", c = "";
+datecur = new Date();
+sec = datecur.getSeconds();
+c  = ((sec <10) ? "0" : "" ) +  sec;
+tmr3 = document.getElementById ("tmr3");
+tmr3.style.backgroundColor = 'white';
+tmr3.innerText = c;
+}
+
+function openPopup() {
+  var popup = document.querySelector('.popup');
+  popup.style.display = 'block';
+}
+
+function closePopup() {
+  var popup = document.querySelector('.popup');
+  popup.style.display = 'none';
+}
+
+let button = document.querySelector('#button');
+
+button.addEventListener('click', function() {
+  alert('Вы нажали на кнопку');
+});
+</script>
+<style>
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 70px;
+  background-color: #fff;
+  border: 1px solid #000;
+  opacity: 1;
+  z-index: 9999;
+}
+.button {
+  margin: 0 auto;
+  display: block;
+}
+</style>
+</head>
+<body bgcolor="#9B9B9B" onmousemove = "watch1(); watch2(); watch3()">
+<font size="4" face="Cambria">
+<a href="main.html"><img src="logo.jpg"></a>
+  <h1 align="center">Форматы для хранения звука</h1>
+  <h2 align="center">Развлекательная страница</h2>
+  <hr color="black">
+  Карта сайта:
+  <br><a href="main.html">Главная страница</a>
+  <br><a href="dop.html">Дополнительная информация</a>
+  <br><a href="sources.html">Источники</a>
+  <br><a href="lab3_1.htm">Если скучно читать про форматы для хранения звука</a>
+  <br><a href="lab3_2.htm">Если очень скучно читать про форматы для хранения звука</a>
+  <br><a href="forma.htm">Анкета посетителя сайта</a>
+  <hr color="black">
+  <button onclick="openPopup()">Открыть всплывающее окно</button>
+  <div style="text-align:center" class="popup">
+  Бобрович Николай Сергеевич, ГУАП, 4136.
+  <button onclick="closePopup()">Закрыть</button>
+  </div>
+  <br/>
+  <input type="button" id="button" value="нажми меня" onclick="f2()"> 
+  <br/>
+  <button onclick="sum(1, 2)">Сумма 1+2</button>
+  <br/>
+  </div>
+  Введите скрипт:
+  <br/>
+  <textarea id="mycode" rows=10 cols=40></textarea>
+  <br/>Результат:
+  <br/>
+  <textarea id="myrezult" rows=3 cols=40></textarea>
+  <br/>
+  <button onclick= "document.getElementById('myrezult').value = eval(document.getElementById('mycode').value)"> Выполнить</button>
+  <button onclick= "document.getElementById('mycode').value=''; document.getElementById('myrezult').value=''"> Очистить</button >
+  <hr color="black">
+  Текущее время: <span id = "tmr1"></span> <span id = "tmr2"></span> <span id = "tmr3"></span>
+  <br/>
+  Автор сайта: Бобрович Николай Сергеевич. Почта: TolstiyKolya@yandex.ru
+</font>
+</body>
+</html>

@@ -1,0 +1,84 @@
+USE BD1;
+
+#6
+
+SELECT O.* 
+FROM owner AS O 
+LEFT JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+LEFT JOIN flat AS F ON F.flat_id = O_F.flat_id WHERE living_space = (SELECT MIN(living_space) FROM flat);
+
+SELECT O.* 
+FROM owner AS O 
+LEFT JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+LEFT JOIN flat AS F ON F.flat_id = O_F.flat_id WHERE living_space <= ALL (SELECT (living_space) FROM flat);
+
+select FLO.floor_id, COUNT(M.meter_id)
+from floor AS FLO 
+join flat AS FLA on FLO.floor_id = FLA.floor_id
+LEFT JOIN meter AS M ON FLA.flat_id = M.flat_id
+group by FLA.floor_id
+HAVING COUNT(M.meter_id) = (
+    SELECT MIN(t.c) FROM (
+        SELECT COUNT(*) AS c
+        FROM flat AS FLA
+        LEFT JOIN meter AS M ON FLA.flat_id = M.flat_id
+        GROUP BY M.meter_id
+    ) t
+);
+
+select FLO.floor_id, COUNT(DISTINCT M_T.meter_type_id)
+from floor AS FLO 
+join flat AS FLA on FLO.floor_id = FLA.floor_id
+JOIN meter AS M ON FLA.flat_id = M.flat_id
+left join meter_type AS M_T ON m.meter_type_id = m_t.meter_type_id
+group by FLO.floor_id
+HAVING COUNT(DISTINCT M_T.meter_type_id) = (
+    SELECT COUNT(meter_type_id) AS c FROM meter_type
+);
+
+SELECT COUNT(meter_type_id) FROM meter_type;
+
+Select floor.* 
+from floor 
+where not exists
+(select * from meter_type
+where not exists
+(Select * from floor as FLO
+join flat as FLA on FLO.floor_id = FLA.floor_id
+JOIN meter AS M ON FLA.flat_id = M.flat_id
+where FLO.floor_id = floor.floor_id and meter_type.meter_type_id = M.meter_type_id));
+
+SELECT O.*
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+WHERE F.number_of_rooms = 1 AND O.owner_id NOT IN
+(SELECT O.owner_id
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+WHERE F.number_of_rooms = 2);
+/*
+SELECT O.*
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+WHERE F.number_of_rooms = 1 EXCEPT
+SELECT O.*
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+WHERE F.number_of_rooms = 2;
+*/
+SELECT O.*
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+LEFT JOIN
+(SELECT O.*
+FROM owner AS O
+JOIN owner_flat AS O_F ON O.owner_id = O_F.owner_id
+JOIN flat AS F ON F.flat_id = O_F.flat_id 
+WHERE F.number_of_rooms = 2
+)q ON O.owner_id = q.owner_id 
+WHERE F.number_of_rooms = 1 AND q.owner_id IS NULL;

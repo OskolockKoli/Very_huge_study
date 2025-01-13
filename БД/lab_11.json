@@ -1,0 +1,130 @@
+floor1_id = ObjectId()
+floor2_id = ObjectId()
+floor3_id = ObjectId()
+
+db.floor.insertMany(
+[
+  {
+    "_id": floor1_id,
+    "floor_number": 1
+  },
+  {
+    "_id": floor2_id,
+    "floor_number": 2
+  },
+  {
+    "_id": floor3_id,
+    "floor_number": 3
+  }
+])
+
+flat1_id = ObjectId()
+flat2_id = ObjectId()
+flat3_id = ObjectId()
+flat4_id = ObjectId()
+
+db.flat.insertMany(
+[
+  {
+    "_id": flat1_id,
+    "number_of_rooms": 2,
+    "area": 50.2,
+    "living_space": 44.8,
+	"is_c_p": false,
+    "floor_id": floor1_id,
+  },
+  {
+    "_id": flat2_id,
+    "number_of_rooms": 3,
+    "area": 56.2,
+    "living_space": 48.8,
+	"is_c_p": false,
+    "floor_id": floor2_id,
+  },
+  {
+    "_id": flat3_id,
+    "number_of_rooms": 4,
+    "area": 58.2,
+    "living_space": 49.8,
+	"is_c_p": false,
+    "floor_id": floor3_id,
+  },
+  {
+    "_id": flat4_id,
+    "number_of_rooms": 2,
+    "area": 51.2,
+    "living_space": 45.8,
+	"is_c_p": true,
+    "floor_id": floor2_id,
+  }
+]
+)
+
+meter1_id = ObjectId()
+meter2_id = ObjectId()
+meter3_id = ObjectId()
+
+db.meter.insertMany(
+[
+{
+	"_id": meter1_id,
+	"flat_id": flat1_id,
+	"meter_type": "gas"
+},
+{
+	"_id": meter2_id,
+	"flat_id": flat1_id,
+	"meter_type": "gas"
+},
+{
+	"_id": meter3_id,
+	"flat_id": flat2_id,
+	"meter_type": "water"
+}
+])
+
+meter_data1_id = ObjectId()
+meter_data2_id = ObjectId()
+meter_data3_id = ObjectId()
+
+db.meter_data.insertMany(
+[
+{
+	"_id": meter_data1_id,
+	"value": 220.4,
+	"date": Date(),
+	"meter_id": meter1_id
+},
+{
+	"_id": meter_data2_id,
+	"value": 230.4,
+	"date": Date(),
+	"meter_id": meter2_id
+},
+{
+	"_id": meter_data3_id,
+	"value": 240.4,
+	"date": Date(),
+	"meter_id": meter3_id
+}
+])
+
+owner1_id = ObjectId()
+owner2_id = ObjectId()
+
+db.owner.insertMany([
+  {
+    "_id": owner1_id,
+    "name": "Иван",
+    "surname": "Иванович",
+    "second_name": "Иванов",
+	"flats": [flat1_id, flat4_id]
+  },
+  {
+    "_id": owner2_id,
+    "name": "Анна",
+    "surname": "Иванова",
+    "second_name": "Ивановна",
+	"flats": [flat2_id, flat3_id]
+  }
+])

@@ -1,0 +1,22 @@
+function createMatrix(M, N, a, b) {
+    let x = [], count = 0, s = "";
+    for (i = 0; i < M; i++){
+        x[i] = [];
+        for (j = 0; j < N; j++){
+            x[i][j] = b;
+        }
+        for (j = 0 + count; j < N - count; j++){
+            x[i][j] = a;
+        }
+        count = count + 1;
+        for (j = 0; j < N; j++){
+            s = s + x[i][j] + " ";
+        }
+        s = s + "\n";
+    }
+    console.log(x);
+    return s;
+}
+
+res = createMatrix(5, 7, 0, 7)
+res

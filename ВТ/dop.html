@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<style>
+ A:link { 
+  color: black;
+ }
+ A:visited { 
+  color: pink;
+ }
+ A:hover { 
+  color: gray;
+ }
+ H1:first-letter {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 200%;
+  color: gray;
+  text-decoration: underline;
+ }
+ H2:first-line {
+  color: #D3D3D3;
+  font-weight: bold;
+ }
+ header, section, footer, aside, nav, article
+ {
+  display: block;
+ }
+ aside
+ {
+  background-image: url("wt4.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 50%;
+ }
+ table
+ {
+  width: 100%;
+  color: black;
+  border: 1px black;
+ }
+ tbody tr:hover {
+  background: blue;
+  color: #fff;
+ }
+ abbr {
+ }
+</style>
+<head>
+  <meta charset="utf-8">
+  <title>Bobrovich_4136_WT</title>
+  <script>
+   function  f1()
+   {
+    
+	}
+   }
+  </script>
+</head>
+ <body bgcolor="#9B9B9B" onmousemove="f1();">
+ <header>
+  <a href="main.html"><img src="logo.jpg"></a>
+  <h1 align="center">Форматы для хранения звука</h1>
+  <h2 align="center">Дополнительная информация</h2>
+ </header>
+  <font size="4" face="Cambria">
+ <nav>
+  <hr color="black">
+  Карта сайта:
+  <br><a href="main.html">Главная страница</a>
+  <br><a href="dop.html">Дополнительная информация</a>
+  <br><a href="sources.html">Источники</a>
+  <br><a href="lab3_1.htm">Если скучно читать про форматы для хранения звука</a>
+  <br><a href="lab3_2.htm">Если очень скучно читать про форматы для хранения звука</a>
+  <br><a href="forma.htm">Анкета посетителя сайта</a>
+  <hr color="black">
+ </nav>
+ <article>
+ <br><b>Немного дополнительной информации:</b>
+ <aside>
+  <ol start="1" value="l1">
+   <li>Виды разрядностей (значения могут находится в диапазоне от n до n+1 разрядности)</li>
+    <ol>
+        <li>16</li>
+        <li>20</li>
+        <li>24</li>
+		<li>32</li>
+    </ol>
+   <li>Число каналов (значения могут находится в диапазоне от n до n+1 числа каналов)
+    <ol>
+	    <li>2</li>
+        <li>4</li>
+        <li>8</li>
+        <li>16</li>
+		<li>32</li>
+		<li>64</li>
+        <li>128</li>
+        <li>256</li>
+		<li>512</li>
+    </ol>
+   </li>
+   <li>Скорость потока данных с диска (значения могут находится в диапазоне от n до n+1 скорости)</li>
+    <ol>
+        <li>320</li>
+        <li>500</li>
+        <li>512</li>
+		<li>640</li>
+        <li>760</li>
+        <li>1500</li>
+		<li>4620</li>
+        <li>6910</li>
+    </ol>
+</ol>
+ </aside>
+ <section>
+  <table border="1">
+  <caption><b>Некоторые виды цифрового звука в сравнении.</b></caption>
+   <tr>
+    <th>Название формата</th>
+	<th>Разрядность, бит</th>
+	<th>Частота дискретизации, кГц</th>
+	<th>Число каналов</th>
+	<th>Скорость потока данных с диска, кбит/с</th>
+	<th>Степень и тип сжатия</th>
+   </tr>
+   <tr>
+    <td><abbr title="common disk">CD</abbr> </td>
+	<td>16</td>
+	<td>44,1</td>
+	<td>2</td>
+	<td>1411,2</td>
+	<td>1:1 без потерь</td>
+  </tr>
+  <tr>
+    <td>Dolby Digital (AC3)</td>
+	<td>16-24</td>
+	<td>48</td>
+	<td>6</td>
+	<td>до 640</td>
+	<td>~12:1 с потерями</td>
+  </tr>
+  <tr>
+	<td>DTS</td>
+	<td>20-24</td>
+	<td>48; 96</td>
+	<td>до 8</td>
+	<td>до 1536</td>
+	<td>3:1 с потерями</td>
+  </tr>
+  <tr>
+	<td>DVD-Audio</td>
+	<td rowspan="2">16; 20; 24</td>
+	<td>44,1; 48; 88,2; 96</td>
+	<td>6</td>
+	<td>6912</td>
+	<td rowspan="2">1:1 без потерь</td>
+  </tr>
+  <tr>
+	<td>DVD-Audio</td>
+	<td>176,4; 192</td>
+	<td rowspan="2">2</td>
+	<td>4608</td>
+  </tr>
+  <tr>
+	<td>MP3</td>
+	<td rowspan="3" background="wt5.png" width=5%>16-24</td>
+	<td>до 48</td>
+	<td>до 320</td>
+	<td>~11:1 с потерями</td>
+  </tr>
+  <tr>
+	<td>AAC</td>
+	<td>до 96</td>
+	<td>до 48</td>
+	<td>до 512</td>
+	<td rowspan="3">с потерями</td>
+  </tr>
+  <tr>
+	<td>AAC+ (SBR)</td>
+	<td>до 48</td>
+	<td>2</td>
+	<td>до 320</td>
+  </tr>
+  <tr>
+	<td>Ogg Vorbis</td>
+	<td>до 32</td>
+	<td>до 192</td>
+	<td>до 255</td>
+	<td>до 500</td>
+  </tr>
+  <tr>
+	<td>WMA</td>
+	<td>до 24</td>
+	<td>до 96</td>
+	<td>до 2</td>
+	<td>до 760</td>
+	<td>2:1, есть версия без потерь</td>
+  </tr>
+  <tr>
+	<td><br></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+  </tr>
+ </table>
+ <p>Понравилось?</p>
+ <select>
+  <option>Да</option>
+  <option>Очень</option>
+</select>
+ </section>
+ </article>
+ <footer>
+  <hr color="black">
+  Автор сайта: Бобрович Николай Сергеевич. Почта: TolstiyKolya@yandex.ru
+ </footer>
+  </font>
+ </body>
+</html>

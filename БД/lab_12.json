@@ -1,0 +1,230 @@
+floor4_id = ObjectId()
+
+flat4_id = ObjectId()
+
+meter5_id = ObjectId()
+meter6_id = ObjectId()
+
+db.floor.insertOne(
+  {
+    "_id": floor4_id,
+    "floor_number": 4,
+    "flats": [
+      {
+        "_id": flat4_id,
+        "number_of_rooms": 3,
+        "area": 150.2,
+        "living_space": 144.8,
+        "is_c_p": false,
+        "owner_id": [owner1_id],
+        "meters": [
+          {
+            "_id": meter5_id,
+            "value": 220.2,
+            "meter_type": meter_type1_id
+          },
+          {
+            "_id": meter6_id,
+            "value": 210.2,
+            "meter_type": meter_type2_id
+          }
+        ]
+      }
+    ]
+  }
+)
+
+db.floor.updateOne({ floor_number: 4 }, { $set: { floor_number: 5 } })
+db.floor.updateOne({ floor_number: 5 }, { $set: { floor_number: 4 } })
+
+db.floor.updateOne({ floor_number: 4 }, { $set: { "flats.0.is_c_p": true } })
+
+db.floor.updateOne({ floor_number: 4 }, { $unset: { flats: 0 } })
+
+db.floor.deleteOne({ floor_number: 4 })
+
+---
+
+а)
+db.floor.aggregate([
+{ $unwind: "$flats" },
+{ $lookup: { from: "owner", localField: "flats.owner_id", foreignField: "_id", as: "flats.owner_id" } },
+{ $unwind: "$flats.owner_id" },
+{ $match: { "flats.is_c_p": false, "flats.owner_id.patronym": { $regex: '^И', $options: "i" } } },
+{ $replaceWith: "$flats" }
+])
+б)
+db.floor.aggregate([
+  { $unwind: "$flats" },
+  { $unwind: "$flats.owner_id" },
+  {
+    $group: {
+      _id: "$flats.owner_id",
+      floors: { $addToSet: "$floor_number" }
+    }
+  },
+  { $match: { floors: { $not: { $size: 1 } } } },
+  {
+    $lookup: {
+      from: "owner",
+      localField: "_id",
+      foreignField: "_id",
+      as: "owner"
+    }
+  },
+  { $unwind: "$owner" },
+  {
+    $project: {
+      _id: 0,
+      fullName: {
+        $concat: [
+          "$owner.surname",
+          " ",
+          "$owner.name",
+          " ",
+          "$owner.patronym"
+        ]
+      },
+      floors: 1
+    }
+  }
+])
+в)
+db.floor.aggregate([
+  { $unwind: "$flats" },
+  { $match: { "flats.owner_id": { $exists: true } } },
+  { $sort: { "flats.living_space": -1 } },
+  {
+    $group: {
+      _id: null,
+      flats: { $push: "$flats" },
+      maxLivingSpace: { $max: "$flats.living_space" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      flats: {
+        $filter: {
+          input: "$flats",
+          cond: { $eq: ["$$this.living_space", "$maxLivingSpace"] }
+        }
+      }
+    }
+  },
+  {
+    $unwind: "$flats"
+  },
+  {
+    $lookup: {
+      from: "owner",
+      localField: "flats.owner_id",
+      foreignField: "_id",
+      as: "owner_data"
+    }
+  },
+  { $unwind: "$owner_data" },
+  {
+    $project: {
+      _id: 0,
+      owner_name: {
+        $concat: [
+          "$owner_data.name",
+          " ",
+          "$owner_data.surname",
+          " ",
+          "$owner_data.patronym"
+        ]
+      },
+      living_space: "$flats.living_space"
+    }
+  }
+])
+г)
+db.floor.aggregate([
+  {
+    $project: {
+      floor_number: 1,
+      commPremisesCount: {
+        $sum: {
+          $cond: [
+            { $isArray: "$flats" },
+            {
+              $sum: {
+                $map: {
+                  input: "$flats",
+                  as: "flat",
+                  in: { $cond: [ "$$flat.is_c_p", 1, 0 ] }
+                }
+              }
+            },
+            0
+          ]
+        }
+      }
+    }
+  },
+  { $sort: { commPremisesCount: 1 } },
+  { $group: {
+    _id: "$commPremisesCount",
+    floor_numbers: { $push: "$floor_number" }
+  }},
+  { $sort: { _id: 1 } },
+  { $limit: 1 },
+  { $project: {
+    _id: 0,
+    floor_numbers: 1
+  }}
+])
+д)
+db.floor.aggregate([
+  { $unwind: "$flats" },
+  { $unwind: "$flats.owner_id" },
+  {
+    $group: {
+      _id: "$flats.owner_id",
+      hasThreeRooms: {
+        $max: {
+          $cond: [
+            { $eq: ["$flats.number_of_rooms", 3] },
+            1,
+            0
+          ]
+        }
+      },
+      hasTwoRooms: {
+        $max: {
+          $cond: [
+            { $eq: ["$flats.number_of_rooms", 2] },
+            1,
+            0
+          ]
+        }
+      }
+    }
+  },
+  { $match: { hasThreeRooms: 0, hasTwoRooms: 1 } },
+  {
+    $lookup: {
+      from: "owner",
+      localField: "_id",
+      foreignField: "_id",
+      as: "owner_data"
+    }
+  },
+  { $unwind: "$owner_data" },
+  {
+    $project: {
+      _id: 0,
+      owner_name: {
+        $concat: [
+          "$owner_data.name",
+          " ",
+          "$owner_data.surname",
+          " ",
+          "$owner_data.patronym"
+        ]
+      }
+    }
+  }
+])
