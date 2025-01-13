@@ -1,0 +1,53 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+nav{
+    display: block;
+    text-align: center;
+}
+
+h1 {
+    margin-left: 30px;
+    color: #111111;
+}
+
+img{
+    display: block;
+    margin: auto;
+    width: 60%;
+}
+
+a {
+    color: #111111;
+    font-size: 20px;
+}
+
+.first{
+    text-align: center;
+    background-color: #8B4513;
+    margin: 0 auto;
+}
+
+.first > div{
+    display: inline-block;
+}
+
+.in {
+    text-align: center;
+    vertical-align: middle;
+    padding-right: 45px;
+    position: relative;
+}
+
+.second {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #8B4513;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+}
+

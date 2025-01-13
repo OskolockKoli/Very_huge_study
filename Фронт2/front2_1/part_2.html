@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Part_2</title>
+</head>
+<body>
+<label for="name">
+Enter your name:
+</label>
+<input type="text" id="name">
+<button onclick="f1()">
+Save
+</button>
+<p id="message"></p>
+<p id="count"></p>
+
+<script>
+function f1() {
+  let name = document.getElementById('name').value;
+  document.cookie = `name=${name}; expires=Fri, 31 Dec 2024 23:59:59 GMT`;
+  document.getElementById('message').innerText = `Welcome, ${name}`;
+}
+let l_name = document.cookie.replace(/(?:(?:^|.*;\s*)name\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+if (l_name) {
+  document.getElementById('message').innerText = `Welcome back, ${l_name}`;
+}
+let count = localStorage.getItem('count');
+count = count ? parseInt(count) + 1 : 1;
+localStorage.setItem('count', count);
+document.getElementById('count').innerText = `You visited this web-site ${count} times`;
+</script>
+</body>
+</html>
+</body>
+</html>
