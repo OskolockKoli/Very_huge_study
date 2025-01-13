@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bobrovich_4136_Frontend_4_0</title>
+	<style>
+     * {
+      box-sizing: border-box; 
+     }
+     .flex-container {
+      display: flex;
+	  min-height: 97vh;
+	  flex-direction: column;
+	  margin: 0px;
+	  background-color: white;
+     }
+	 .header {
+      display: flex;
+      flex: 1;
+	  flex-direction: row;
+	  margin: 5px;
+	  align-content: space-around;
+	  background-color: #D3D3D3;
+	  @media (max-width: 800px) {
+       flex-direction: column;
+      }
+     }
+	 .header > h1 {
+      background-color: grey;
+	  margin: 15px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+     }
+	 .header > h2 {
+      background-color: grey;
+	  margin: 15px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+     }
+	 .header > h3 {
+      background-color: grey;
+	  margin: 15px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+     }
+	 .header > h4 {
+      background-color: grey;
+	  margin: 15px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+     }
+	 .main {
+      display: flex;
+      flex: 500;
+	  flex-direction: row;
+	  margin: 5px;
+	  align-content: space-around;
+	  background-color: #D3D3D3;
+	  @media (max-width: 800px) {
+       flex-direction: column;
+      }
+     }
+	 .main > m1 {
+      background-color: #D3D3D3;
+	  margin: 5px;
+	  text-align: flex-start;
+	  flex: 1;
+	  border: 7px double black;
+	  padding-bottom: 15px;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+	  @media (max-width: 800px) {
+	   flex: 1;
+      }
+     }
+	 .main > m2 {
+      background-color: #D3D3D3;
+	  margin: 5px;
+	  text-align: flex-start;
+	  flex: 2;
+	  border: 7px double black;
+	  padding-bottom: 15px;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+	  @media (max-width: 800px) {
+       flex: 1;
+      }
+     }
+	 .main > m3 {
+      background-color: #D3D3D3;
+	  margin: 5px;
+	  text-align: flex-start;
+	  flex: 1;
+	  border: 7px double black;
+	  padding-bottom: 15px;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+	  @media (max-width: 800px) {
+       flex: 1;
+      }
+     }
+     .footer {
+      display: flex;
+      flex: 50;
+	  flex-direction: row;
+	  margin: 1px;
+	  align-content: space-around;
+	  background-color: #D3D3D3;
+	  @media (max-width: 800px) {
+       flex-direction: column;
+	   height: 10vh;
+      }
+     }
+	 .footer > f1 {
+      background-color: #D3D3D3;
+	  margin: 5px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+	  padding-bottom: 15px;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+	  @media (max-width: 800px) {
+	   
+      }
+     }
+	 .footer > f2 {
+      background-color: #D3D3D3;
+	  margin: 5px;
+	  text-align: center;
+	  flex: 1;
+	  border: 7px double black;
+	  padding-bottom: 15px;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-right: 15px;
+	  @media (max-width: 800px) {
+	   
+      }
+     }
+	 .leftimg {
+      float:left;
+      margin: 7px 7px 7px 7px;
+	  @media (max-width: 800px) {
+       float:none;
+      }
+     }
+    </style>
+  </head>
+    <body>
+	 <div class="flex-container">
+	  <div class="header">
+	   <h1>
+	    <form action="1.html" target="_blank">
+        <button style="width:335px;height:50px">Ссылка 1</button>
+        </form>
+	   </h1>
+	   <h2>
+	    <form action="2.html" target="_blank">
+        <button style="width:335px;height:50px">Ссылка 2</button>
+        </form>
+	   </h2>
+	   <h3>
+	    <form action="3.html" target="_blank">
+        <button style="width:335px;height:50px">Ссылка 3</button>
+        </form>
+	   </h3>
+	   <h4>
+	    <form action="4.html" target="_blank">
+        <button style="width:335px;height:50px">Ссылка 4</button>
+        </form>
+	   </h4>
+	  </div>
+	  <div class="main">
+	  <m1>Web-технологии представляют собой область, в которой с самого начала ее появления постоянно происходят существенные изменения. Одним из наиболее важных и достаточно сложных этапов создания любого сайта справедливо считается верстка. Вопросы верстки web-сайтов на протяжении всей истории существования web-разработки вызывали самое пристальное внимание специалистов и технологии верстки постоянно ими совершенствовались.</m1>
+	   <m2>
+	    <img class="leftimg" src="im2.jpg" alt="Sample photo">
+	    <h3>Статья</h3>
+	    <p>Следующий шаг по пути совершенствования подходов к верстке сайтов был сделан в связи с бурным развитием мобильных технологий, которые повлекли за собой необходимость корректного отображения сайтов и на различных по размеру экранах мобильных устройств. Таким шагом стало появление адаптивного дизайна. В нем обеспечивается адаптация макета сайта под различные размеры планшетов, смартфонов, мониторов настольных компьютеров. Обычно предусматривается ряд вариантов макетов в зависимости от ширины экрана. Переходы между ними происходят не плавно, а скачкообразно. При этом могут меняться не только размеры блоков и расстояния между ними, но может изменяться их расположение. Элементы, которые на больших экранах расположены рядом друг с другом по горизонтали, на малых экранах будут выстроены по вертикали.</p>
+	   </m2>
+	   
+	   <m3>На протяжении двух последних десятилетий наблюдалось интенсивное развитие подходов к реализации верстки web-страниц: табличная верстка уступила место блочной, технология свободного позиционирования элементов развивалась совместно с развитием технологии каскадных таблиц стилей и добавляла все новые возможности. На смену фиксированному дизайну пришел сначала резиновый, затем адаптивный и, наконец, отзывчивый дизайн.</m3>
+	  </div>
+	  <div class="footer">
+	   <f1>Телефон: +7(000)000-00-00</f1>
+	   <f2>Адрес: 190000, ул. Б.Морская, д.67</f2>
+	  </div>
+	 </div>
+    </body>
+</html>
