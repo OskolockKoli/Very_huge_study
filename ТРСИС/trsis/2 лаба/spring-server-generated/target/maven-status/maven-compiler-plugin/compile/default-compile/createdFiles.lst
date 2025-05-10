@@ -1,0 +1,6 @@
+io\swagger\Swagger2SpringBoot.class
+io\swagger\Swagger2SpringBoot$ExitException.class
+io\swagger\Swagger2SpringBoot$CustomDateConfig.class
+io\swagger\configuration\SwaggerUiConfiguration.class
+io\swagger\RFC3339DateFormat.class
+io\swagger\configuration\SwaggerDocumentationConfig.class
